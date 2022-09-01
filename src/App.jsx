@@ -40,23 +40,23 @@ function App() {
 
                 }
         
-                const fetchMore = async () =>{
-                        if(more==true){
+                // const fetchMore = async () =>{
+                //         if(more==true){
                         
-                        const raw = await fetch('http://191.252.186.178/journal',{
-                                method:'POST',
-                                headers:{
-                                        'Content-Type':'application/json'
-                                },
-                                body:JSON.stringify({comando:2,notebook_id:page})
-                        })
+                //         const raw = await fetch('http://191.252.186.178/journal',{
+                //                 method:'POST',
+                //                 headers:{
+                //                         'Content-Type':'application/json'
+                //                 },
+                //                 body:JSON.stringify({comando:2,notebook_id:page})
+                //         })
 
-                        const data = await raw.json();
+                //         const data = await raw.json();
                                 
-                                setMore(false)
-                                setTexts(data)
-                        }
-                }
+                //                 setMore(false)
+                //                 setTexts(data)
+                //         }
+                // }
                         const update = async()=>{
                         const raw = await fetch('http://191.252.186.178/journal',{
                                         method:'POST',
@@ -80,9 +80,7 @@ function App() {
 
                 }
 
-        
-
-                        fetchMore()
+                        //fetchMore()
                         fetchNotebooks()
 
         },[page,data])
@@ -97,24 +95,27 @@ function App() {
           <GlobalStyle/>
 
           <Notebooks 
+
           chooseChapter = {(chapter)=>{
                   setMore(true)
                   setRefresh(true)
                   setPage(chapter)
           }}
 
-          handleChange = {(newText)=>{
-                  setTexts(newText)
+          handleChange = {()=>{
+                  const n = refresh == true?false:true
+                  setRefresh(n)
           }}
                 data = {notebooks}/>
 
 
           <Chapters 
+                chapter = {page}
                 handleChapter={
                         (newChapter)=>{
                                 setChapter(newChapter) 
                         }} 
-                data = {texts}/>
+                data = {refresh}/>
 
           <Page 
           handleChange = {(newData)=>{

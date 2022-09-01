@@ -16,7 +16,7 @@ const raw = await fetch('http://191.252.186.178/journal',{
         const result = await raw.json();
 
         console.log(result) 
-        refreshMe(result)
+        refreshMe()
         
 
 }
