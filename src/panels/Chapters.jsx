@@ -27,7 +27,7 @@ const raw = await fetch('http://191.252.186.178/journal',{
 
 const Chapters= (props) => {
         console.log(props.chapter)
-        const [texts, setTexts] = useState([])
+        const [texts, setTexts] = useState([{title:"Alchemy", text:"This is the study of change."}, {title: "Logic", text: "This is the study of change"}])
         const [update, setUpdate] = useState(true)
 
     const deleteChapter = useCallback(()=>{
@@ -66,9 +66,6 @@ const Chapters= (props) => {
 
                             <CardTitle>{item.title} 
 
-                            <Remove onClick={()=>{
-                                setUpdate();    
-                            }}></Remove>
 
                             </CardTitle>
 

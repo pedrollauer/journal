@@ -1,9 +1,13 @@
-import {SectionContainer, NotebooksContainer,Title,Section,SectionTitle,SectionItem,RightButton} from './NotebooksStyles.jsx'
+import { NotebooksContainer, Section,SectionTitle,} from './NotebooksStyles.jsx'
 import {TbNotebook} from 'react-icons/tb'
-import {AiFillTag,AiFillPushpin} from 'react-icons/ai'
+import {AiFillTag,AiFillPushpin, AiOutlineDown} from 'react-icons/ai'
+import {MdOutlineAdd} from 'react-icons/md'
+import Colapsable from '../global_components/Colapsable'
+import {Add, SectionItem, SectionContainer} from '../global_components/globalStyles'
 import {useState, useEffect, Fragment} from 'react'
 
 
+const dummyData = [{name: "Rhetoric"},{name: "Logic"}, {name: "Grammar"}];
 const update = async(data, refreshMe)=>{
 const raw = await fetch('http://191.252.186.178/journal',{
                 method:'POST',
@@ -21,49 +25,41 @@ const raw = await fetch('http://191.252.186.178/journal',{
 
 }
 
-const Add = (props) =>{        
-
-                return <RightButton onClick={props.onClick} size={props.size}>ADD</RightButton>
-}
 
 const Notebooks= (props) => {
 
         const [data, setData] = useState({})
-        useEffect(()=>{
-                update(data, props.handleChange)
-        },[data])
+
+
+
 
         console.log(props.data)
         return(
-                <NotebooksContainer>
-                        <Title>
-                                JOURNAL
-                        </Title>
-                <hr/>
+                <NotebooksContainer 
+                         >
 
+
+                <Colapsable setPop = {props.setPop} name = {Notebooks}>
                 <Section>
-                <div>
-
-                <SectionContainer>
-                <TbNotebook/>
-                <SectionTitle>
-                        Notebooks 
-                </SectionTitle>
-                <Add size={'100%'}/>
-                </SectionContainer>
 
                 {
-                        props.data.map((item,key)=>{
+                        dummyData.map((item,key)=>{
                         return (
                        
-                                <Fragment key = {key}>
-                                <SectionItem 
-                                onClick ={ ()=>{
+                                <SectionItem
+                                selected = {key == props.notebook?true:false}
+                                onContextMenu = {() => {
+                                        console.log('Adone!')
+                                        props.cMenu([{option:'Deletar Caderno', command:0}, {option:'Criar Novo Caderno', command:1}, {option:'Renomear Caderno', command:2}])
+                                }}
 
+                                onClick ={ (e)=>{
+                                        
+                                        console.log(e)
                                         props.chooseChapter(item.notebook_id)
                                 }}
                                         key={key}>
-                                        {item.name}
+                                       <td> {item.name}</td>
 
                                 <Add key = {key} size={'18px'} 
                                         
@@ -76,15 +72,14 @@ const Notebooks= (props) => {
                                 }}/>
 
                                 </SectionItem>
-                                </Fragment>
                         )
                 })
 
                 }
 
-                </div>
                 </Section>
 
+                </Colapsable>
                 <Section>
                 <AiFillPushpin/><SectionTitle>Status</SectionTitle>
                 </Section> 

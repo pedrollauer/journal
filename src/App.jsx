@@ -5,21 +5,60 @@ import Chapters from './panels/Chapters'
 import {Container, GlobalStyle} from './styles/Global.jsx'
 import {ThemeProvider} from 'styled-components'
 import {dummyNotebook,dummyChapters} from './dummyData.jsx'
+import {defaultCMenu} from './global_components/globalVariables'
 import theme from './styles/themes.jsx'
-
+import Right from './panels/Right.jsx'
+import Header from './panels/Header'
+import Popup from './global_components/Popup'
 
 function App() {
 
         const [chapter,setChapter] = useState(0)
         const [page,setPage] = useState(0)
+        const [notebook, setNotebook] = useState(0)
+
         const [notebooks,setNotebooks] = useState([{name:''}])
+
         const [texts,setTexts] = useState([{text:""}])
         const [more, setMore] = useState(false)
-        const [data,setData]  = useState({})
+        const [data,setData]  = useState([{name: "Rhetoric"},{name: "Logic"}, {name: "Grammar"}])
         const [refresh, setRefresh] = useState(true)
-        
+
+        const [contMenu, setContMenu] = useState(false)
+        const [position, setPosition] = useState({x:50, y:500})
+        const [cMenuOptions, setCMenuOptions] = useState([{option:'Opcao 1', command:0}, {option:'Opcao 3', command:0}, {option:'Opcao 2', command:0}])
+        const [pop, setPop] = useState({visibility: false, title: '---' ,name: '--', button: 'OK', })
+
+        const togglePop = (state) => {
+                setPop(state)
+        }
+
+        const showContextMenu = (options) => {
+                setContMenu(true)
+                setCMenuOptions(options)
+        }
+
+        const toggleContextMenu = (event)=>{
+                console.log(event)
+                setPosition({x:event.clientX, y:event.clientY})
+        }
+
+        const hideContextMenu = (event) =>{
+                console.log(event)
+                console.log('Mio caro adone')
+                setContMenu(false);
+        }
+        useEffect(()=>{
+                window.addEventListener("contextmenu", toggleContextMenu)
+                window.addEventListener("click", hideContextMenu)
+                return () => {
+                        window.removeEventListener("contextmenu", toggleContextMenu)
+                }
+        },[data])
 
         useEffect(()=>{
+
+
                 const fetchNotebooks = async()=>{
                         const raw = await fetch('http://191.252.186.178/journal',{
                                 method:'POST',
@@ -87,15 +126,30 @@ function App() {
   return (
 
     <div className="App">
-          <Container>
+          <Header/>
+          <Container
+          onContextMenu = {(e) => {
+                        e.preventDefault()
+                        
+                        }}>
 
           <ThemeProvider 
                 theme={theme.dark}>
 
           <GlobalStyle/>
+          <Right                
+                                setPop = {togglePop}
+                                pop = {pop}
+                                options = {cMenuOptions} 
+                                toggle ={toggleContextMenu} 
+                                visibility = {contMenu}
+                                position={position}/>
+          <Popup pop = {pop} setPop = {togglePop} />
 
           <Notebooks 
-
+          notebook = {notebook}
+          setPop = {togglePop}
+          cMenu = {showContextMenu}
           chooseChapter = {(chapter)=>{
                   setMore(true)
                   setRefresh(true)
@@ -119,10 +173,10 @@ function App() {
 
           <Page 
           handleChange = {(newData)=>{
-                  setData(newData)
+                  //setData(newData)
                   setMore(true)
           }}
-                data = {texts[chapter]==null?{text:""}:texts[chapter]}/>
+                data = {texts[chapter]==null?{text:"dsadsads"}:texts[chapter]}/>
 
           </ThemeProvider>
 
