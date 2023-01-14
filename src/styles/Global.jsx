@@ -6,8 +6,9 @@ body{
         width:100%;
         height:100vh;
         margin:0px;
-
+        overflow: hidden;
 }
+
 hr{
         background-color:white;
 }
@@ -30,5 +31,10 @@ width:100%;
 height:100%;    
 display:grid;
 grid-template-columns:20% 30% 50%;
+
+@media screen and (max-width: 700px){
+    overflow: hidden;
+    display: block;
+}
 `
 

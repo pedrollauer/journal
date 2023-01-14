@@ -3,13 +3,25 @@ import styled from 'styled-components'
 export const EditorContainer = styled.div`
         height:100%;
         background-color:${props => props.theme.strong};
-        overflow-x:hidden;
+        overflow:hidden;
+        z-index: 3
+
+        transform: translateY(-200px);
+        @media screen and (max-width: 700px){
+            width:700px;
+            height: 100vh;
+            transform: ${props => props.screen==2?'translateY(-200vh)':'translateY(0px)'};
 `
 
 export const EditorHeader = styled.div`
         margin: 50px 0px 50px 0px;
         text-align:center; 
-        color:${props => props.theme.text}
+        color:${props => props.theme.text};
+
+       @media screen and (max-width: 700px){
+        padding: 0px;
+        width: 100vw;       
+       }
 `
 
 export const TextArea= styled.textarea`
@@ -17,13 +29,20 @@ export const TextArea= styled.textarea`
        box-sizing:border-box;
        width:100%;
        height:100%;
-       margin:0 auto;
+       margin:auto;
        color:${props => props.theme.text};
        outline:none !important;
        border:none;
        resize:none;
        padding:0px 30px 0px 30px;
        text-align:justify;
+
+       @media screen and (max-width: 700px){
+        padding: 0px;
+        width: 100vw;
+        padding: 0px 20px 0px 20px; 
+       }
+       
 `
 export const Save = styled.button`
         margin: 10px 0px 10px 0px;

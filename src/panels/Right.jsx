@@ -17,6 +17,10 @@ const runCommand = (command, props) => {
             props.setPop({visibility: true, title: 'Rename Notebook', button: 'Rename', name: 'New Name', label: 'Enter the new name'})
             console.log('Rename Notebook')
             break;
+        case 3:
+            props.setPop({visibility: true, title: 'Move Notebook', button: 'Move', name: 'Destination', label: 'Pick the destination'})
+            console.log('Move Notebook')
+            break;
         default: 
             console.log('Unknown command.');
     }

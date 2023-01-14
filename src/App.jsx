@@ -10,9 +10,11 @@ import theme from './styles/themes.jsx'
 import Right from './panels/Right.jsx'
 import Header from './panels/Header'
 import Popup from './global_components/Popup'
+import Navigate from './global_components/Navigate'
 
 function App() {
 
+        const [screen, setScreen] = useState(0)
         const [chapter,setChapter] = useState(0)
         const [page,setPage] = useState(0)
         const [notebook, setNotebook] = useState(0)
@@ -29,6 +31,9 @@ function App() {
         const [cMenuOptions, setCMenuOptions] = useState([{option:'Opcao 1', command:0}, {option:'Opcao 3', command:0}, {option:'Opcao 2', command:0}])
         const [pop, setPop] = useState({visibility: false, title: '---' ,name: '--', button: 'OK', })
 
+        const changeScreen = (screenCode) => {
+           setScreen(screenCode)
+        }
         const togglePop = (state) => {
                 setPop(state)
         }
@@ -44,8 +49,6 @@ function App() {
         }
 
         const hideContextMenu = (event) =>{
-                console.log(event)
-                console.log('Mio caro adone')
                 setContMenu(false);
         }
         useEffect(()=>{
@@ -53,6 +56,7 @@ function App() {
                 window.addEventListener("click", hideContextMenu)
                 return () => {
                         window.removeEventListener("contextmenu", toggleContextMenu)
+                        window.removeEventListener("click", hideContextMenu)
                 }
         },[data])
 
@@ -123,6 +127,8 @@ function App() {
                         fetchNotebooks()
 
         },[page,data])
+
+    console.log('Screen ' + screen)
   return (
 
     <div className="App">
@@ -145,8 +151,14 @@ function App() {
                                 visibility = {contMenu}
                                 position={position}/>
           <Popup pop = {pop} setPop = {togglePop} />
-
+          <Navigate 
+      setScreen = {(s)=>{
+        setScreen(s)
+      }}
+            screen = {screen}/>
           <Notebooks 
+          screen = {screen}
+          changeScreen = {changeScreen}
           notebook = {notebook}
           setPop = {togglePop}
           cMenu = {showContextMenu}
@@ -154,6 +166,7 @@ function App() {
                   setMore(true)
                   setRefresh(true)
                   setPage(chapter)
+                  setScreen(1)
           }}
 
           handleChange = {()=>{
@@ -163,7 +176,10 @@ function App() {
                 data = {notebooks}/>
 
 
-          <Chapters 
+          <Chapters  
+                screen = {screen}
+                changeScreen = {changeScreen}
+                cMenu = {showContextMenu}
                 chapter = {page}
                 handleChapter={
                         (newChapter)=>{
@@ -172,6 +188,9 @@ function App() {
                 data = {refresh}/>
 
           <Page 
+          screen = {screen}
+          changeScreen = {changeScreen}
+          cMenu = {showContextMenu}
           handleChange = {(newData)=>{
                   //setData(newData)
                   setMore(true)

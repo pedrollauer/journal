@@ -26,7 +26,7 @@ const raw = await fetch('http://191.252.186.178/journal',{
 
 
 const Chapters= (props) => {
-        console.log(props.chapter)
+        console.log(props)
         const [texts, setTexts] = useState([{title:"Alchemy", text:"This is the study of change."}, {title: "Logic", text: "This is the study of change"}])
         const [update, setUpdate] = useState(true)
 
@@ -56,13 +56,21 @@ const Chapters= (props) => {
     },[update, props.chapter, props.data])
 
         return(
-                <ChaptersContainer>
+                <ChaptersContainer
+                screen = {props.screen}
+                >
                 <ChapterHeader> Chapter </ChapterHeader>
                 {texts.map((item,key) => {
                         return (
                         <Card 
                                 key = {key} 
-                                onClick={()=>props.handleChapter(key)}>
+                                onClick = {()=>props.changeScreen(2)}
+                                onContextMenu={()=>{
+                                    //props.handleChapter(key)
+                                    console.log('Pop');
+                                    props.cMenu([{option:'New Chapter', command:0}, {option:'Delete Chapter', command:1}, {option:'Move Chapter', command:3}])
+                                    
+                                    }}>
 
                             <CardTitle>{item.title} 
 

@@ -7,6 +7,14 @@ export const NotebooksContainer= styled.div`
         background-color:${props => props.theme.strong};
         color:${props => props.theme.text};
         resize: horizontal;
+        z-index: 1;
+
+        @media screen and (max-width: 700px){
+            width:100vw;
+            height: 100vh;
+            padding: 0px;
+            
+        }
 
 `
 

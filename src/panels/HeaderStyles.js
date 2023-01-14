@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const HFrame = styled.div`
+    position: absolute;
+    top: 0px;
+    left: 0px;
+`
 export const HContainer = styled.div`
 position: relative;
 width: 100%;
@@ -13,11 +18,16 @@ export const Title = styled.div`
         padding-top: 10px;
         text-align:center;
         color: white;
+
+        @media screen and (max-width: 700px){
+            text-align: left;
+            margin-left: 10px;
+        }
 `
 
 export const Login= styled.button`
     position: absolute;
-    right: 10px;
+    right: 0px;
     top: 0px;
     width: 80px;
     height: 100%;

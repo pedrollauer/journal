@@ -1,6 +1,49 @@
 import styled from 'styled-components'
 import {MdOutlineAdd} from 'react-icons/md'
 
+export const NavMembrane = styled.div`
+    position: relative;
+    width: 100%;
+    height: 50px;
+    display: none;
+    cursor: pointer;
+    background-color: ${props => props.theme.strongest};
+    @media screen and (max-width: 700px){
+        display: block;
+    }
+`
+export const NavContainer = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+`
+export const SNavSec= styled.div`
+    width: 100px;
+    height: 100%;
+    background-color:${props => props.colors[props.number]};
+    padding: 15px 0px;
+`
+
+export const CNavSec = styled.div`
+   display: flex;
+   flex-direction: row;
+   height:100%;
+   z-index: ${props=>props.number};
+   color: ${props => props.theme.text};
+   font-size: 20px;
+   text-align: center;
+   overflow: hidden;
+
+`
+export const TNavSec= styled.div`
+    width: 0px;
+    height: 0px;
+    border-top: 25px solid ${props => props.screen==props.number?'transparent':props.colors[props.number+1]};
+    border-bottom: 25px solid  ${props => props.screen==props.number?'transparent':props.colors[props.number+1]};
+    border-left: 25px solid ${props => props.colors[props.number]};
+`
 export const ColapsableStyle = styled.div`
 display: ${props => props.collapsed?'none':'block'};
 
@@ -66,11 +109,11 @@ export const SectionContainer= styled.div`
 `
 export const PContainer= styled.div`
         position: absolute;
+        z-index: 5;
         display: ${props => props.visibility?'block':'none'};
         width: 400px;
         height: 150px;
-        top: 0px;
-        bottom: 0px;
+        top: 100px;
         right: 0px;
         left: 0px;
         margin: auto;
@@ -78,9 +121,15 @@ export const PContainer= styled.div`
         color: ${props => props.theme.text};
         text-align: center;
         box-sizing: border-box;
+        
+        @media screen and (max-width: 700px){
+            height: 150px;
+            width: 100%;
+            font-size; 60px;
+        }
 
         label{
-                margin: 10px;
+                margin: 10px 0px;
         }
        div{
         margin-bottom: 20px;

@@ -35,9 +35,7 @@ const Notebooks= (props) => {
 
         console.log(props.data)
         return(
-                <NotebooksContainer 
-                         >
-
+                <NotebooksContainer >
 
                 <Colapsable setPop = {props.setPop} name = {Notebooks}>
                 <Section>
@@ -47,6 +45,7 @@ const Notebooks= (props) => {
                         return (
                        
                                 <SectionItem
+                            
                                 selected = {key == props.notebook?true:false}
                                 onContextMenu = {() => {
                                         console.log('Adone!')
