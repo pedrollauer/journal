@@ -21,7 +21,7 @@ function App() {
 
         const [notebooks,setNotebooks] = useState([{name:''}])
 
-        const [texts,setTexts] = useState([{text:""}])
+        const [texts,setTexts] = useState(0)
         const [more, setMore] = useState(false)
         const [data,setData]  = useState([{name: "Rhetoric"},{name: "Logic"}, {name: "Grammar"}])
         const [refresh, setRefresh] = useState(true)
@@ -34,6 +34,13 @@ function App() {
         const changeScreen = (screenCode) => {
            setScreen(screenCode)
         }
+
+        const changeText = (text) => {
+            console.log(text)
+            setTexts(text)
+            setScreen(2)
+        }
+
         const togglePop = (state) => {
                 setPop(state)
         }
@@ -60,73 +67,73 @@ function App() {
                 }
         },[data])
 
-        useEffect(()=>{
+        // useEffect(()=>{
 
 
-                const fetchNotebooks = async()=>{
-                        const raw = await fetch('http://191.252.186.178/journal',{
-                                method:'POST',
-                                headers:{
-                                        'Content-Type':'application/json'
-                                },
-                                body:JSON.stringify({comando:0})
-                        })
+        //         const fetchNotebooks = async()=>{
+        //                 const raw = await fetch('http://191.252.186.178/journal',{
+        //                         method:'POST',
+        //                         headers:{
+        //                                 'Content-Type':'application/json'
+        //                         },
+        //                         body:JSON.stringify({comando:0})
+        //                 })
 
-                        const result = await raw.json();
+        //                 const result = await raw.json();
 
                        
 
-                if(refresh==true){
-                        setNotebooks(result)
-                        setRefresh(false)
-                }
+        //         if(refresh==true){
+        //                 setNotebooks(result)
+        //                 setRefresh(false)
+        //         }
 
-                }
+        //         }
         
-                // const fetchMore = async () =>{
-                //         if(more==true){
+        //         // const fetchMore = async () =>{
+        //         //         if(more==true){
                         
-                //         const raw = await fetch('http://191.252.186.178/journal',{
-                //                 method:'POST',
-                //                 headers:{
-                //                         'Content-Type':'application/json'
-                //                 },
-                //                 body:JSON.stringify({comando:2,notebook_id:page})
-                //         })
+        //         //         const raw = await fetch('http://191.252.186.178/journal',{
+        //         //                 method:'POST',
+        //         //                 headers:{
+        //         //                         'Content-Type':'application/json'
+        //         //                 },
+        //         //                 body:JSON.stringify({comando:2,notebook_id:page})
+        //         //         })
 
-                //         const data = await raw.json();
+        //         //         const data = await raw.json();
                                 
-                //                 setMore(false)
-                //                 setTexts(data)
-                //         }
-                // }
-                        const update = async()=>{
-                        const raw = await fetch('http://191.252.186.178/journal',{
-                                        method:'POST',
-                                        headers:{
-                                                'Content-Type':'application/json'
-                                        },
-                                        body:JSON.stringify(data)
-                                })
+        //         //                 setMore(false)
+        //         //                 setTexts(data)
+        //         //         }
+        //         // }
+        //                 const update = async()=>{
+        //                 const raw = await fetch('http://191.252.186.178/journal',{
+        //                                 method:'POST',
+        //                                 headers:{
+        //                                         'Content-Type':'application/json'
+        //                                 },
+        //                                 body:JSON.stringify(data)
+        //                         })
 
-                                const result = await raw.json();
-                                console.log(result)
+        //                         const result = await raw.json();
+        //                         console.log(result)
 
                                
 
 
-                        }
+        //                 }
 
-                if(Object.keys(data)!=0) {
+        //         if(Object.keys(data)!=0) {
                 
-                        update()
+        //                 update()
 
-                }
+        //         }
 
-                        //fetchMore()
-                        fetchNotebooks()
+        //                 //fetchMore()
+        //                 fetchNotebooks()
 
-        },[page,data])
+        // },[page,data])
 
     console.log('Screen ' + screen)
   return (
@@ -160,14 +167,12 @@ function App() {
           screen = {screen}
           changeScreen = {changeScreen}
           notebook = {notebook}
+          selectNotebook = {(id)=>{
+              console.log('Current Notebook: '+id)
+              setNotebook(id)
+          }}
           setPop = {togglePop}
           cMenu = {showContextMenu}
-          chooseChapter = {(chapter)=>{
-                  setMore(true)
-                  setRefresh(true)
-                  setPage(chapter)
-                  setScreen(1)
-          }}
 
           handleChange = {()=>{
                   const n = refresh == true?false:true
@@ -177,10 +182,12 @@ function App() {
 
 
           <Chapters  
+                notebook = {notebook}
                 screen = {screen}
                 changeScreen = {changeScreen}
                 cMenu = {showContextMenu}
                 chapter = {page}
+                changeText = {changeText}
                 handleChapter={
                         (newChapter)=>{
                                 setChapter(newChapter) 
@@ -191,6 +198,7 @@ function App() {
           screen = {screen}
           changeScreen = {changeScreen}
           cMenu = {showContextMenu}
+          currText = {texts}
           handleChange = {(newData)=>{
                   //setData(newData)
                   setMore(true)

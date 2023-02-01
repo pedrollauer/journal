@@ -13,16 +13,72 @@ Sed placerat efficitur eleifend. Suspendisse mattis, justo ut tempor ultricies, 
 
 const dummyTitle = 'Titulum'
 const Page = (props) => {
-        const [text,setText] = useState(dummyData)
-        useEffect(()=>{
-               // setText(props.data.text)
-        },[props.data.text]) 
 
+
+ const update = async (chapter) =>{
+
+    const request = {command:4 ,chapt_id: chapter, text: text.text} 
+     console.log(request)
+    const raw = await fetch('http://localhost:3000/journal',{
+            method:'POST',
+            headers:{
+                    'Content-Type':'application/json'
+            },
+        body:JSON.stringify(request)
+    })
+
+    const data = await raw.json();
+
+    return data
+        
+}
+const fetchText = async (chapter) =>{
+
+    const raw = await fetch('http://localhost:3000/journal',{
+            method:'POST',
+            headers:{
+                    'Content-Type':'application/json'
+            },
+            body:JSON.stringify({command:2,chapt_id: chapter})
+    })
+
+    const data = await raw.json();
+
+    return data
+        
+}
+
+        const [text,setText] = useState(-1)
+        useEffect(()=>{
+
+            const a = async() =>{
+
+                const text = await fetchText(props.currText)
+                console.log(text)
+               setText(text)
+            }
+
+            a()
+        },[props.currText]) 
+
+        useEffect(()=>{
+
+            const a = async() =>{
+
+                console.log(text)
+                if(text != -1 ){
+                 await update(props.currText)
+                }
+            }
+
+            a()
+            console.log("Adorno!!")
+        },[text]) 
         return(
                 <EditorContainer
                 screen = {props.screen}>
                 <EditorHeader>
-                <br/>{dummyTitle}<br/>
+                <br/>{text.title}<br/>
                 </EditorHeader> 
 
                 <TextArea 
@@ -30,9 +86,10 @@ const Page = (props) => {
                                 props.cMenu([{option:'Copy', command:0}, {option:'Paste', command:1}, {option:'Cut', command:3}])
                         }}
 
-                        value={text}
+                        value={text.text}
                         onChange = {(cEvent) => {
-                               setText(cEvent.target.value) 
+                               const newText = {text:cEvent.target.value, tite: text.title }
+                               setText(newText) 
                 }}
                 />
                 

@@ -7,64 +7,63 @@ const Remove = (props)=>{
     )
 }
 
-const fetchTexts= async (chapter) =>{
-
-const raw = await fetch('http://191.252.186.178/journal',{
-        method:'POST',
-        headers:{
-                'Content-Type':'application/json'
-        },
-        body:JSON.stringify({comando:2,notebook_id:chapter})
-})
-
-    const data = await raw.json();
-
-    console.log(chapter)
-    return data
-        
-}
 
 
 const Chapters= (props) => {
-        console.log(props)
+
+        console.log('Current Notebook: '+props.notebook)
         const [texts, setTexts] = useState([{title:"Alchemy", text:"This is the study of change."}, {title: "Logic", text: "This is the study of change"}])
         const [update, setUpdate] = useState(true)
+
+const fetchTexts= async () =>{
+
+    const raw = await fetch('http://localhost:3000/journal',{
+            method:'POST',
+            headers:{
+                    'Content-Type':'application/json'
+            },
+            body:JSON.stringify({command:1,note_id:props.notebook})
+    })
+
+    const data = await raw.json();
+
+    console.log(data)
+    return data
+        
+}
 
     const deleteChapter = useCallback(()=>{
 
         const a = async ()=>{
 
             const texts = await fetchTexts(props.chapter)
-            console.log(texts)
+            
             setTexts(texts)
         }
 
         a()
-    },[])
+    },[props.notebook])
 
     useEffect(()=>{
 
         const a = async ()=>{
 
-            const texts = await fetchTexts(props.chapter)
-            console.log(texts)
+            const texts = await fetchTexts()
             setTexts(texts)
         }
 
         a()
 
-    },[update, props.chapter, props.data])
+    },[update, props.chapter, props.notebook])
 
         return(
-                <ChaptersContainer
-                screen = {props.screen}
-                >
+                <ChaptersContainer screen = {props.screen}>
                 <ChapterHeader> Chapter </ChapterHeader>
                 {texts.map((item,key) => {
                         return (
                         <Card 
                                 key = {key} 
-                                onClick = {()=>props.changeScreen(2)}
+                                onClick = {()=>props.changeText(item.id)}
                                 onContextMenu={()=>{
                                     //props.handleChapter(key)
                                     console.log('Pop');
@@ -77,7 +76,7 @@ const Chapters= (props) => {
 
                             </CardTitle>
 
-                                <CardText>{item.text.slice(0,300)}</CardText>
+                                <CardText>{item.description}</CardText>
 
                         </Card>
                         )

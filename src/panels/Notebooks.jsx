@@ -8,32 +8,34 @@ import {useState, useEffect, Fragment} from 'react'
 
 
 const dummyData = [{name: "Rhetoric"},{name: "Logic"}, {name: "Grammar"}];
-const update = async(data, refreshMe)=>{
-const raw = await fetch('http://191.252.186.178/journal',{
-                method:'POST',
-                headers:{
-                        'Content-Type':'application/json'
-                },
-                body:JSON.stringify(data)
-        })
 
-        const result = await raw.json();
 
-        console.log(result) 
-        refreshMe()
-        
-
-}
 
 
 const Notebooks= (props) => {
 
-        const [data, setData] = useState({})
+        const [data, setData] = useState([{name:''}])
 
+        useEffect(()=>{
 
+        const getData = async() => {
 
+        const raw = await fetch('http://localhost:3000/journal',{
+                        method:'POST',
+                        headers:{
+                                'Content-Type':'application/json'
+                        },
+                        body:JSON.stringify({command: 0})
+                })
 
-        console.log(props.data)
+                const result = await raw.json();
+                console.log(result)
+                setData(result)
+
+        }
+        getData()
+        },[])
+
         return(
                 <NotebooksContainer >
 
@@ -41,21 +43,19 @@ const Notebooks= (props) => {
                 <Section>
 
                 {
-                        dummyData.map((item,key)=>{
+                        data.map((item,key)=>{
                         return (
                        
                                 <SectionItem
                             
-                                selected = {key == props.notebook?true:false}
+                                selected = {item.id == props.notebook?true:false}
                                 onContextMenu = {() => {
-                                        console.log('Adone!')
                                         props.cMenu([{option:'Deletar Caderno', command:0}, {option:'Criar Novo Caderno', command:1}, {option:'Renomear Caderno', command:2}])
                                 }}
 
                                 onClick ={ (e)=>{
                                         
-                                        console.log(e)
-                                        props.chooseChapter(item.notebook_id)
+                                    props.selectNotebook(item.id)
                                 }}
                                         key={key}>
                                        <td> {item.name}</td>
@@ -63,11 +63,6 @@ const Notebooks= (props) => {
                                 <Add key = {key} size={'18px'} 
                                         
                                 onClick={()=>{
-                                        setData({
-                                                comando:3,
-                                                notebook_id:item.notebook_id
-                                        })
-                                        console.log(item.notebook_id)
                                 }}/>
 
                                 </SectionItem>
