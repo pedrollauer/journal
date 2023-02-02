@@ -67,7 +67,7 @@ const fetchTexts= async () =>{
                                 onContextMenu={()=>{
                                     //props.handleChapter(key)
                                     console.log('Pop');
-                                    props.cMenu([{option:'New Chapter', command:0}, {option:'Delete Chapter', command:1}, {option:'Move Chapter', command:3}])
+                                    props.cMenu([{option:'New Chapter', command:0, style: 0}, {option:'Delete Chapter', command:1, style: 1}, {option:'Move Chapter', command:3, style: 2}])
                                     
                                     }}>
 

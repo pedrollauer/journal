@@ -203,7 +203,7 @@ function App() {
                   //setData(newData)
                   setMore(true)
           }}
-                data = {texts[chapter]==null?{text:"dsadsads"}:texts[chapter]}/>
+      />
 
           </ThemeProvider>
 
