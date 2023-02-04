@@ -107,6 +107,47 @@ export const SectionContainer= styled.div`
         }
         
 `
+export const MovePop = styled.div`
+        position: absolute;
+        z-index: 5;
+        display: ${props => props.visibility?'block':'none'};
+        width: 400px;
+        height: 200px;
+        top: 100px;
+        right: 0px;
+        left: 0px;
+        margin: auto;
+        background-color: ${props => props.theme.strong};
+        color: ${props => props.theme.text};
+        text-align: center;
+        box-sizing: border-box;
+        
+        @media screen and (max-width: 700px){
+            height: 150px;
+            width: 100%;
+            font-size; 60px;
+        }
+
+        div{
+        
+        color: ${props => props.theme.strongest};
+        }
+
+        label{
+                margin: 10px 0px;
+        }
+       input{
+                width: 75%;
+        }
+       button{
+                margin: 10px;
+        }
+`
+export const PopTitle = styled.div`
+        margin-bottom: 20px;
+        padding-top:10px;
+        background-color: ${props => props.theme.strongest}; 
+`
 export const PContainer= styled.div`
         position: absolute;
         z-index: 5;

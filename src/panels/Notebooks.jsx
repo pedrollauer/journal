@@ -15,7 +15,9 @@ const dummyData = [{name: "Rhetoric"},{name: "Logic"}, {name: "Grammar"}];
 const Notebooks= (props) => {
 
         const [data, setData] = useState([{name:''}])
+        const [add, setAdd] = useState(-1)
 
+        console.log("*********************NOTEBOOK*************************")
         useEffect(()=>{
 
         const getData = async() => {
@@ -34,8 +36,33 @@ const Notebooks= (props) => {
 
         }
         getData()
-        },[])
+        },[props.pop])
 
+        useEffect(()=>{
+
+        const getData = async() => {
+
+            if(add==-1){
+                return
+            }
+
+        const raw = await fetch('http://localhost:3000/journal',{
+                        method:'POST',
+                        headers:{
+                                'Content-Type':'application/json'
+                        },
+            body:JSON.stringify({command: 8, note_id: add})
+                })
+
+                const result = await raw.json();
+                console.log(result)
+                props.selectNotebook(add)
+                setAdd(-1)
+
+        }
+        getData()
+        },[add, props.pop])
+    
         return(
                 <NotebooksContainer >
 
@@ -50,7 +77,7 @@ const Notebooks= (props) => {
                             
                                 selected = {item.id == props.notebook?true:false}
                                 onContextMenu = {() => {
-                                        props.cMenu([{option:'Deletar Caderno', command:0}, {option:'Criar Novo Caderno', command:1}, {option:'Renomear Caderno', command:2}])
+                                        props.cMenu([{option:'Delete Notebeook', command:0, target: item.id}, {option:'New Notebook', command:1, target:{name:item.name, note_id: item.id}}, {option:'Rename Notebook', command:2, target:{name:item.name, note_id: item.id}}])
                                 }}
 
                                 onClick ={ (e)=>{
@@ -62,7 +89,8 @@ const Notebooks= (props) => {
 
                                 <Add key = {key} size={'18px'} 
                                         
-                                onClick={()=>{
+                                onClick={()=>{ 
+                                    setAdd(item.id)
                                 }}/>
 
                                 </SectionItem>

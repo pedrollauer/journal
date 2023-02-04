@@ -5,6 +5,7 @@ export const ChaptersContainer = styled.div`
         background-color:${props => props.theme.nstrong};
         color:${props => props.theme.text};
         z-index:2;
+        overflow-y: scroll;
         
         @media screen and (max-width: 700px){
             width:700px;

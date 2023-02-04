@@ -8,6 +8,7 @@ export const NotebooksContainer= styled.div`
         color:${props => props.theme.text};
         resize: horizontal;
         z-index: 1;
+        overflow-y: scroll;
 
         @media screen and (max-width: 700px){
             width:100vw;

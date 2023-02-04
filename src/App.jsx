@@ -136,6 +136,10 @@ function App() {
         // },[page,data])
 
     console.log('Screen ' + screen)
+          const handleChange = ()=>{
+                  const n = refresh == true?false:true
+                  setRefresh(n)
+          }
   return (
 
     <div className="App">
@@ -172,6 +176,7 @@ function App() {
               setNotebook(id)
           }}
           setPop = {togglePop}
+          pop = {pop}
           cMenu = {showContextMenu}
 
           handleChange = {()=>{
@@ -188,6 +193,7 @@ function App() {
                 cMenu = {showContextMenu}
                 chapter = {page}
                 changeText = {changeText}
+                pop = {pop}
                 handleChapter={
                         (newChapter)=>{
                                 setChapter(newChapter) 
@@ -195,6 +201,7 @@ function App() {
                 data = {refresh}/>
 
           <Page 
+          refresh = {handleChange}
           screen = {screen}
           changeScreen = {changeScreen}
           cMenu = {showContextMenu}
