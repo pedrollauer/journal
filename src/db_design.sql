@@ -21,6 +21,7 @@ create table chapters (id int primary key auto_increment,
                        last_mod datetime);
                        
 create table texts (id int primary key,
+                    title varchar(255),
 					text text);
 
 insert into journal.notebooks (name, created) values ('Grammar', now())

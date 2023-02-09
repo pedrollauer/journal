@@ -46,14 +46,13 @@ const fetchTexts= async () =>{
     useEffect(()=>{
 
         const a = async ()=>{
-
             const texts = await fetchTexts()
             setTexts(texts)
         }
 
         a()
 
-    },[update, props.chapter, props.notebook, props.refresh, props.pop])
+    },[update, props.chapter, props.notebook, props.add, props.refresh, props.pop])
 
         return(
                 <ChaptersContainer screen = {props.screen}>
@@ -66,7 +65,7 @@ const fetchTexts= async () =>{
                                 onContextMenu={()=>{
                                     //props.handleChapter(key)
                                     console.log('Pop');
-                                    props.cMenu([{option:'New Chapter', command:5, style: 0}, {option:'Delete Chapter', command:4, style: 1, target: item.id}, {option:'Move Chapter', command:3, style: 2, target: item.id}])
+                                    props.cMenu([{option:'Delete Chapter', command:4, style: 1, target: item.id}, {option:'Move Chapter', command:3, style: 2, target: item.id}])
                                     
                                     }}>
 

@@ -17,7 +17,6 @@ const Notebooks= (props) => {
         const [data, setData] = useState([{name:''}])
         const [add, setAdd] = useState(-1)
 
-        console.log("*********************NOTEBOOK*************************")
         useEffect(()=>{
 
         const getData = async() => {
@@ -42,7 +41,7 @@ const Notebooks= (props) => {
 
         const getData = async() => {
 
-            if(add==-1){
+            if(props.add==-1){
                 return
             }
 
@@ -51,17 +50,18 @@ const Notebooks= (props) => {
                         headers:{
                                 'Content-Type':'application/json'
                         },
-            body:JSON.stringify({command: 8, note_id: add})
+            body:JSON.stringify({command: 8, note_id: props.add})
                 })
 
                 const result = await raw.json();
                 console.log(result)
-                props.selectNotebook(add)
-                setAdd(-1)
+                props.selectNotebook(props.add)
+                props.setAdd(-1)
+                
 
         }
         getData()
-        },[add, props.pop])
+        },[props.add, props.pop])
     
         return(
                 <NotebooksContainer >
@@ -90,7 +90,7 @@ const Notebooks= (props) => {
                                 <Add key = {key} size={'18px'} 
                                         
                                 onClick={()=>{ 
-                                    setAdd(item.id)
+                                    props.setAdd(item.id)
                                 }}/>
 
                                 </SectionItem>

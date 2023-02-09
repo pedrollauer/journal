@@ -19,6 +19,7 @@ function App() {
         const [page,setPage] = useState(0)
         const [notebook, setNotebook] = useState(0)
 
+        const [add, setAdd] = useState(-1)
         const [notebooks,setNotebooks] = useState([{name:''}])
 
         const [texts,setTexts] = useState(0)
@@ -168,6 +169,10 @@ function App() {
       }}
             screen = {screen}/>
           <Notebooks 
+          add = {add}
+      setAdd = {(value)=>{
+          setAdd(value)
+      }}
           screen = {screen}
           changeScreen = {changeScreen}
           notebook = {notebook}
@@ -181,12 +186,14 @@ function App() {
 
           handleChange = {()=>{
                   const n = refresh == true?false:true
+                  console.log("refreshing")
                   setRefresh(n)
           }}
                 data = {notebooks}/>
 
 
           <Chapters  
+                add = {add}
                 notebook = {notebook}
                 screen = {screen}
                 changeScreen = {changeScreen}
