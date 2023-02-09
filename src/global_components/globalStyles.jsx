@@ -71,8 +71,9 @@ export const RightButton = styled.button`
         margin:auto;
         border:none;
         font-size: 15px;
-        font-weight: 900;
+        font-weight: bold;
         background-color: red;
+        padding-left: 20px;
         color: ${props => props.theme.text};
         visibility:${props => props.visibility=='fixed'?'visible':'hidden'}; 
 
@@ -83,7 +84,7 @@ export const SectionItem= styled.div`
         position: relative;
         font-size:18px;
         box-sizing:border-box;
-        padding-left:70px;
+        padding-left:30px;
         padding-top:10px;
         padding-bottom:10px;
         background-color:${props => props.selected?props.theme.strongest:'transparent'};
