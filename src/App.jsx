@@ -4,8 +4,6 @@ import Notebooks from './panels/Notebooks'
 import Chapters from './panels/Chapters'
 import {Container, GlobalStyle} from './styles/Global.jsx'
 import {ThemeProvider} from 'styled-components'
-import {dummyNotebook,dummyChapters} from './dummyData.jsx'
-import {defaultCMenu} from './global_components/globalVariables'
 import theme from './styles/themes.jsx'
 import Right from './panels/Right.jsx'
 import Header from './panels/Header'
@@ -18,6 +16,7 @@ function App() {
         const [chapter,setChapter] = useState(0)
         const [page,setPage] = useState(0)
         const [notebook, setNotebook] = useState(0)
+        const [title, setTitle] = useState(0)
 
         const [add, setAdd] = useState(-1)
         const [notebooks,setNotebooks] = useState([{name:''}])
@@ -67,74 +66,6 @@ function App() {
                         window.removeEventListener("click", hideContextMenu)
                 }
         },[data])
-
-        // useEffect(()=>{
-
-
-        //         const fetchNotebooks = async()=>{
-        //                 const raw = await fetch('http://191.252.186.178/journal',{
-        //                         method:'POST',
-        //                         headers:{
-        //                                 'Content-Type':'application/json'
-        //                         },
-        //                         body:JSON.stringify({comando:0})
-        //                 })
-
-        //                 const result = await raw.json();
-
-                       
-
-        //         if(refresh==true){
-        //                 setNotebooks(result)
-        //                 setRefresh(false)
-        //         }
-
-        //         }
-        
-        //         // const fetchMore = async () =>{
-        //         //         if(more==true){
-                        
-        //         //         const raw = await fetch('http://191.252.186.178/journal',{
-        //         //                 method:'POST',
-        //         //                 headers:{
-        //         //                         'Content-Type':'application/json'
-        //         //                 },
-        //         //                 body:JSON.stringify({comando:2,notebook_id:page})
-        //         //         })
-
-        //         //         const data = await raw.json();
-                                
-        //         //                 setMore(false)
-        //         //                 setTexts(data)
-        //         //         }
-        //         // }
-        //                 const update = async()=>{
-        //                 const raw = await fetch('http://191.252.186.178/journal',{
-        //                                 method:'POST',
-        //                                 headers:{
-        //                                         'Content-Type':'application/json'
-        //                                 },
-        //                                 body:JSON.stringify(data)
-        //                         })
-
-        //                         const result = await raw.json();
-        //                         console.log(result)
-
-                               
-
-
-        //                 }
-
-        //         if(Object.keys(data)!=0) {
-                
-        //                 update()
-
-        //         }
-
-        //                 //fetchMore()
-        //                 fetchNotebooks()
-
-        // },[page,data])
 
     console.log('Screen ' + screen)
           const handleChange = ()=>{
@@ -201,6 +132,7 @@ function App() {
                 chapter = {page}
                 changeText = {changeText}
                 pop = {pop}
+                title = {title}
                 handleChapter={
                         (newChapter)=>{
                                 setChapter(newChapter) 
@@ -208,6 +140,10 @@ function App() {
                 data = {refresh}/>
 
           <Page 
+          title = {title}
+          setTitle = {(value)=>{
+              setTitle(value)
+          }}
           refresh = {handleChange}
           screen = {screen}
           changeScreen = {changeScreen}

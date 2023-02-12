@@ -1,3 +1,4 @@
+import endpoint from '../db.js'
 import {ChaptersContainer,Card,CardTitle,CardText,ChapterHeader} from './ChaptersStyles.jsx'
 import {useCallback, useEffect, useState} from 'react'
 
@@ -17,7 +18,7 @@ const Chapters= (props) => {
 
 const fetchTexts= async () =>{
 
-    const raw = await fetch('http://localhost:3000/journal',{
+    const raw = await fetch(endpoint+'/journal',{
             method:'POST',
             headers:{
                     'Content-Type':'application/json'
@@ -52,7 +53,7 @@ const fetchTexts= async () =>{
 
         a()
 
-    },[update, props.chapter, props.notebook, props.add, props.refresh, props.pop])
+    },[update, props.chapter, props.notebook, props.title, props.add, props.refresh, props.pop])
 
         return(
                 <ChaptersContainer screen = {props.screen}>

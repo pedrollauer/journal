@@ -1,3 +1,4 @@
+import endpoint from '../db'
 import { NotebooksContainer, Section,SectionTitle,} from './NotebooksStyles.jsx'
 import {TbNotebook} from 'react-icons/tb'
 import {AiFillTag,AiFillPushpin, AiOutlineDown} from 'react-icons/ai'
@@ -21,7 +22,7 @@ const Notebooks= (props) => {
 
         const getData = async() => {
 
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                         method:'POST',
                         headers:{
                                 'Content-Type':'application/json'

@@ -1,3 +1,4 @@
+import endpoint from '../db'
 import {EditorContainer,EditorHeader,TextArea,Save} from './PageStyles.jsx'
 import {useState,useEffect} from 'react'
 
@@ -8,7 +9,7 @@ const Page = (props) => {
 
     const request = {command:4 ,chapt_id: chapter, text: text.text, title: text.title} 
      console.log(request)
-    const raw = await fetch('http://localhost:3000/journal',{
+    const raw = await fetch(endpoint+'/journal',{
             method:'POST',
             headers:{
                     'Content-Type':'application/json'
@@ -24,7 +25,7 @@ const Page = (props) => {
 
 const fetchText = async (chapter) =>{
 
-    const raw = await fetch('http://localhost:3000/journal',{
+    const raw = await fetch(endpoint+'journal',{
             method:'POST',
             headers:{
                     'Content-Type':'application/json'
@@ -39,7 +40,6 @@ const fetchText = async (chapter) =>{
 }
 
         const [text,setText] = useState(-1)
-        const [title, setTitle] = useState()
 
         useEffect(()=>{
 
@@ -58,19 +58,19 @@ const fetchText = async (chapter) =>{
             const a = async() =>{
 
                 console.log(text)
+                console.log(props.title)
                 if(text != -1 ){
                  await update(props.currText)
+                 props.setTitle(props.title+1)
                 }
             }
 
             a()
-            console.log("Adorno!!")
         },[text]) 
         return(
                 <EditorContainer
                 screen = {props.screen}>
                 <EditorHeader>
-                <br/>{text.title}<br/>
                 </EditorHeader> 
 
                 <TextArea 

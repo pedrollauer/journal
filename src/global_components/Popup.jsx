@@ -1,3 +1,4 @@
+import endpoint from '../db'
 import {Fragment, useState, useEffect} from 'react'
 import {DButton, PContainer, MovePop, PopTitle} from './globalStyles'
 import Select from 'react-select'
@@ -42,7 +43,7 @@ import Select from 'react-select'
                 return
             }
         console.log(props.received.pop.target)
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
@@ -92,7 +93,7 @@ import Select from 'react-select'
         console.log(props.received.pop.target)
         console.log(selectedOption)
         console.log(props.received.pop.target.note_id)
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
@@ -106,7 +107,7 @@ import Select from 'react-select'
     }
         const getData = async () =>{
 
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
@@ -173,7 +174,7 @@ import Select from 'react-select'
                 return
             }
         console.log(props.received.pop.target)
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
@@ -219,7 +220,7 @@ import Select from 'react-select'
                 return
             }
 
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
@@ -261,7 +262,7 @@ import Select from 'react-select'
                 return
             }
 
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint + '/journal',{
                 method:'POST',
                 headers:{
                         'Content-Type':'application/json'
