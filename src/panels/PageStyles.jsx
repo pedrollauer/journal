@@ -34,7 +34,7 @@ export const TextArea= styled.textarea`
        outline:none !important;
        border:none;
        resize:none;
-       padding:0px 30px 0px 30px;
+       padding:30px 30px 0px 30px;
        text-align:justify;
 
        @media screen and (max-width: 700px){

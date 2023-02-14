@@ -25,7 +25,7 @@ const Page = (props) => {
 
 const fetchText = async (chapter) =>{
 
-    const raw = await fetch(endpoint+'journal',{
+    const raw = await fetch(endpoint+'/journal',{
             method:'POST',
             headers:{
                     'Content-Type':'application/json'
