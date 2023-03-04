@@ -9,7 +9,7 @@ const Header = (props) => {
                         <Title>
                                 <IoIosJournal/> JOURNAL
                         </Title>
-                        <Login><IoIosLogIn/> Login</Login>
+                        <Login ><IoIosLogIn/> <a href="https://www.plauer.tech">Exit</a></Login>
             </HContainer>
         </Fragment>
     )

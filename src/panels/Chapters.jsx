@@ -70,7 +70,7 @@ const fetchTexts= async () =>{
                                     
                                     }}>
 
-                            <CardTitle>{item.title} 
+                            <CardTitle>{item.title!=null?item.title:""} 
 
 
                             </CardTitle>
@@ -80,6 +80,7 @@ const fetchTexts= async () =>{
                         </Card>
                         )
                 })} 
+            <Card></Card>
                 </ChaptersContainer>
         )
 }

@@ -20,7 +20,10 @@ const Colapsable = (props) => {
                 </button> Notebooks 
         <Add 
             onClick = {
-                ()=>{props.setPop({visibility: true, title: 'Create Notebook', button: 'Create', name: 'New Notebook'})}
+                ()=>{
+            props.setPop({visibility: true, title: 'Create Notebook', button: 'Create', name: 'New Notebook', label: 'Enter the name for the new notebook.', style: 1})
+
+                }
             }
             visibility={'fixed'} 
             size={'100%'}/>

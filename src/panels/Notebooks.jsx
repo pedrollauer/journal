@@ -33,6 +33,8 @@ const Notebooks= (props) => {
                 const result = await raw.json();
                 console.log(result)
                 setData(result)
+                const firstNotebook = result[0]!=null?result[0].id:0
+                props.selectNotebook(firstNotebook)
 
         }
         getData()
@@ -84,6 +86,7 @@ const Notebooks= (props) => {
                                 onClick ={ (e)=>{
                                         
                                     props.selectNotebook(item.id)
+                                    props.changeScreen(1)
                                 }}
                                         key={key}>
                                        <td> {item.name}</td>
@@ -103,13 +106,6 @@ const Notebooks= (props) => {
                 </Section>
 
                 </Colapsable>
-                <Section>
-                <AiFillPushpin/><SectionTitle>Status</SectionTitle>
-                </Section> 
-
-                <Section>
-                <AiFillTag/><SectionTitle>Status</SectionTitle>
-                </Section>
 
                 </NotebooksContainer>
         )

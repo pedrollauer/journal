@@ -7,6 +7,11 @@ const Page = (props) => {
 
  const update = async (chapter) =>{
 
+
+     if(text.text.length == null || text.text.length == 0){
+         return
+     }
+
     const request = {command:4 ,chapt_id: chapter, text: text.text, title: text.title} 
      console.log(request)
     const raw = await fetch(endpoint+'/journal',{
@@ -74,9 +79,6 @@ const fetchText = async (chapter) =>{
                 </EditorHeader> 
 
                 <TextArea 
-                        onContextMenu = {() => {
-                                props.cMenu([{option:'Copy', command:0}, {option:'Paste', command:1}, {option:'Cut', command:3}])
-                        }}
 
                         value={text.text}
                         onChange = {(cEvent) => {
@@ -99,4 +101,7 @@ const fetchText = async (chapter) =>{
                 </EditorContainer>
         )
 }
+                        // onContextMenu = {() => {
+                        //         props.cMenu([{option:'Copy', command:0}, {option:'Paste', command:1}, {option:'Cut', command:3}])
+                        // }}
 export default  Page

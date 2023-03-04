@@ -61,7 +61,7 @@ import Select from 'react-select'
 
         return (
         <PContainer visibility = {props.received.pop.visibility}>
-            <div>{props.received.pop.title}dsadsadsadsadsada</div>
+            <div>{props.received.pop.title}</div>
             <label>{props.received.pop.label}</label><br/>
             <input onChange = {(e)=>{
                 console.log(e)
