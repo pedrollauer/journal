@@ -48,7 +48,7 @@ const Notebooks= (props) => {
                 return
             }
 
-        const raw = await fetch('http://localhost:3000/journal',{
+        const raw = await fetch(endpoint+'/journal',{
                         method:'POST',
                         headers:{
                                 'Content-Type':'application/json'
