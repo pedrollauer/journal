@@ -33,8 +33,10 @@ const Notebooks= (props) => {
                 const result = await raw.json();
                 console.log(result)
                 setData(result)
+            if(notebook==0){
                 const firstNotebook = result[0]!=null?result[0].id:0
                 props.selectNotebook(firstNotebook)
+            }
 
         }
         getData()
